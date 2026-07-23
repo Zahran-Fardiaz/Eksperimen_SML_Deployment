@@ -4,3 +4,4 @@ mlflow
 matplotlib
 seaborn
 dagshub
+evidently

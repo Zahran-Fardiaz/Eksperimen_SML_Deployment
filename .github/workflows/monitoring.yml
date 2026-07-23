@@ -1,0 +1,32 @@
+name: Monitoring Data Drift 
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  data-drift-monitoring:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Drift Detection Script
+        run: |
+          python drift_detection.py
+          
+      - name: Save Drift Report Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: evidently-drift-report
+          path: data_drift_report.html
