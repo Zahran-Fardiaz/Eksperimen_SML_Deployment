@@ -66,6 +66,14 @@ def main():
         cm_filename = "confusion_matrix.png"
         plt.savefig(cm_filename)
         mlflow.log_artifact(cm_filename)
+        
+        feature_importances = pd.Series(best_model.feature_importances_, index=X_train.columns)
+        plt.figure(figsize=(10,6))
+        feature_importances.nlargest(10).plot(kind='barh')
+        plt.title('Top 10 Feature Importances')
+        fi_filename = "feature_importance.png"
+        plt.savefig(fi_filename)
+        mlflow.log_artifact(fi_filename)
 
         if os.path.exists("saved_model"):
             shutil.rmtree("saved_model")
