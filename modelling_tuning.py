@@ -16,10 +16,11 @@ DAGSHUB_URI = 'https://dagshub.com/Zahran-Fardiaz/Eksperimen_SML_Zahran-Fardiaz.
 mlflow.set_tracking_uri(DAGSHUB_URI)
 
 def load_processed_data():
-    X_train = pd.read_csv("membangun_model/datasets_preprocessing/X_train_clean.csv")
-    X_test = pd.read_csv("membangun_model/datasets_preprocessing/X_test_clean.csv")
-    y_train = pd.read_csv("membangun_model/datasets_preprocessing/y_train_clean.csv").values.ravel()
-    y_test = pd.read_csv("membangun_model/datasets_preprocessing/y_test_clean.csv").values.ravel()
+    base_path = "datasets_preprocessing" if os.path.exists("datasets_preprocessing") else "membangun_model/datasets_preprocessing"
+    X_train = pd.read_csv(f"{base_path}/X_train_clean.csv")
+    X_test = pd.read_csv(f"{base_path}/X_test_clean.csv")
+    y_train = pd.read_csv(f"{base_path}/y_train_clean.csv").values.ravel()
+    y_test = pd.read_csv(f"{base_path}/y_test_clean.csv").values.ravel()
     return X_train, X_test, y_train, y_test
 
 def main():
